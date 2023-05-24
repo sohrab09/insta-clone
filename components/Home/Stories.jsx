@@ -24,7 +24,7 @@ const Stories = () => {
                                     />
                                     <Text style={styles.storyName}>
                                         {
-                                            story.userName.length > 10 ? story.userName.slice(0, 10).toLowerCase() + '...' : story.userName.toLowerCase()
+                                            story.user.length > 10 ? story.user.slice(0, 10).toLowerCase() + '...' : story.user.toLowerCase()
                                         }
                                     </Text>
                                 </TouchableOpacity>
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         borderColor: 'orange',
         borderWidth: 2
-
     },
     storyName: {
         color: '#fff',
