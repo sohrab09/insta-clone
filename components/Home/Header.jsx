@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 30,
         width: 30,
-        color: 'white'
     },
     unreadMessage: {
         backgroundColor: 'red',
