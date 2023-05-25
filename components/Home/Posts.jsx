@@ -4,6 +4,7 @@ import { Divider } from 'react-native-elements'
 import PostHeader from './PostHeader';
 import PostImage from './PostImage';
 import PostFooter from './PostFooter';
+import Likes from './Likes';
 
 
 
@@ -18,6 +19,7 @@ const Posts = ({ post }) => {
             <PostImage post={post} />
             <View style={{ marginHorizontal: 15, marginTop: 10 }}>
                 <PostFooter />
+                <Likes post={post} />
             </View>
         </View>
     )
