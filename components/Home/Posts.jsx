@@ -6,6 +6,7 @@ import PostImage from './PostImage';
 import PostFooter from './PostFooter';
 import Likes from './Likes';
 import Caption from './Caption';
+import Comments from './Comments';
 
 
 
@@ -22,6 +23,7 @@ const Posts = ({ post }) => {
                 <PostFooter />
                 <Likes post={post} />
                 <Caption post={post} />
+                <Comments post={post} />
             </View>
         </View>
     )
