@@ -5,6 +5,7 @@ import PostHeader from './PostHeader';
 import PostImage from './PostImage';
 import PostFooter from './PostFooter';
 import Likes from './Likes';
+import Caption from './Caption';
 
 
 
@@ -20,6 +21,7 @@ const Posts = ({ post }) => {
             <View style={{ marginHorizontal: 15, marginTop: 10 }}>
                 <PostFooter />
                 <Likes post={post} />
+                <Caption post={post} />
             </View>
         </View>
     )
