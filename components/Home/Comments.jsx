@@ -2,9 +2,16 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const Comments = ({ post }) => {
+    // console.log('post', JSON.stringify(post, null, 2))
     return (
         <View style={styles.container}>
-            <Text style={{ color: 'gray' }}> Comments Will Here... </Text>
+            {
+                !!post.comments.length && (
+                    <Text style={{ color: 'gray' }}>
+                        View {post.comments.length > 1 ? 'all' : ''}  {post.comments.length} {post.comments.length > 1 ? 'comments' : 'comment'}
+                    </Text>
+                )
+            }
         </View>
     )
 }
