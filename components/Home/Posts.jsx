@@ -1,8 +1,9 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Divider } from 'react-native-elements'
 import PostHeader from './PostHeader';
 import PostImage from './PostImage';
+import PostFooter from './PostFooter';
 
 
 
@@ -15,6 +16,9 @@ const Posts = ({ post }) => {
             />
             <PostHeader post={post} />
             <PostImage post={post} />
+            <View style={{ marginHorizontal: 15, marginTop: 10 }}>
+                <PostFooter />
+            </View>
         </View>
     )
 }

@@ -4,7 +4,7 @@ export const POSTS = [
     {
         imageUrl: "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/328666553_724689402401065_5668862451541808429_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFMkWqsm6POgc7JpAkpRL2H8kGcYhAzll_yQZxiEDOWX_mLCSwGRUcnNkHqxXtmQgjswL-m92_OKt0WXJUGjIsd&_nc_ohc=SPFgpYSZugoAX_YBT6_&_nc_ht=scontent.fdac5-2.fna&oh=00_AfCdOX_plM8tRHNLcYjsHLDl6EHA9Sd0UXZ0shgNwFv_Vg&oe=64728D68",
         user: USERS[0].user,
-        likes: 50,
+        likes: 7807,
         caption: "Amazing view!",
         profile_picture: USERS[0].image,
         comments: [
