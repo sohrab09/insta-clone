@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Divider } from 'react-native-elements';
+import validUrl from 'valid-url';
+
 
 const uploadPostSchema = Yup.object().shape({
     imageUrl: Yup.string().url().required('Image URL is required'),
@@ -12,7 +14,7 @@ const uploadPostSchema = Yup.object().shape({
 const PLACEHOLDERIMAGE = 'https://img.icons8.com/ios/50/ffffff/image--v1.png'
 
 
-const PostUploader = () => {
+const PostUploader = ({ navigation }) => {
 
     const [thumbnailUrl, setThumbnailUrl] = useState(PLACEHOLDERIMAGE)
 
@@ -22,7 +24,10 @@ const PostUploader = () => {
                 imageUrl: '',
                 caption: '',
             }}
-            onSubmit={values => console.log("Values ---->>>>>> ", values)}
+            onSubmit={values => {
+                console.log("Values ---->>>>>> ", values)
+                navigation.goBack()
+            }}
             validationSchema={uploadPostSchema}
             validateOnMount={true}
         >
@@ -30,7 +35,7 @@ const PostUploader = () => {
                 <>
                     <View style={{ margin: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Image
-                            source={{ uri: thumbnailUrl ? thumbnailUrl : PLACEHOLDERIMAGE }}
+                            source={{ uri: validUrl.isUri(thumbnailUrl) ? thumbnailUrl : PLACEHOLDERIMAGE }}
                             style={{ width: 100, height: 100 }}
                         />
                         <View style={{ flex: 1, marginLeft: 15 }}>
