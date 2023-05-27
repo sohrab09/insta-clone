@@ -5,9 +5,10 @@ import * as Yup from 'yup'
 import Validator from 'email-validator'
 
 
-const LoginForm = ({ navigation }) => {
+const SignupForm = ({ navigation }) => {
 
     const validationSchema = Yup.object().shape({
+        username: Yup.string().required('An username is required'),
         email: Yup.string().email('Invalid email').required('An email is required'),
         password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters')
     })
@@ -16,7 +17,7 @@ const LoginForm = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Formik
-                initialValues={{ email: '', password: '' }}
+                initialValues={{ username: '', email: '', password: '' }}
                 validationSchema={validationSchema}
                 onSubmit={values => console.log(values)}
                 validateOnMount={true}
@@ -26,7 +27,19 @@ const LoginForm = ({ navigation }) => {
                         <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.input}
-                                placeholder="Username or Email"
+                                placeholder="Username"
+                                placeholderTextColor="#fff"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                underlineColorAndroid="transparent"
+                                autoFocus={true}
+                                onChangeText={handleChange('username')}
+                                onBlur={handleBlur('username')}
+                                value={values.username}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Email"
                                 placeholderTextColor="#fff"
                                 keyboardType="email-address"
                                 autoCapitalize="none"
@@ -56,17 +69,17 @@ const LoginForm = ({ navigation }) => {
                                 </TouchableOpacity>
                             </View>
                             <Button
-                                title="Login"
+                                title="Signup"
                                 onPress={handleSubmit}
                             />
                         </View>
                         <View style={styles.textContainer}>
                             <Text style={{ color: '#ccc' }}>
-                                Don't have an account?
+                                Already have an account?
                             </Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
                                 <Text style={{ color: '#00bfff', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>
-                                    Sign Up
+                                    Login
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -77,7 +90,7 @@ const LoginForm = ({ navigation }) => {
     )
 }
 
-export default LoginForm
+export default SignupForm
 
 const styles = StyleSheet.create({
     container: {

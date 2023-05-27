@@ -70,9 +70,14 @@ const styles = StyleSheet.create({
     wrapper: {
         position: 'absolute',
         width: '100%',
-        bottom: '3%',
+        bottom: '0%',
+        left: 0,
+        right: 0,
+        height: 50,
+        justifyContent: 'center',
         backgroundColor: '#000000',
         zIndex: 999,
+        // flex: 1
     },
     container: {
         flexDirection: 'row',
