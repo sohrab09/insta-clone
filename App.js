@@ -3,9 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import NewPostScreens from './screens/NewPostScreens';
 import SignInStack from './Navigation';
+import { AuthContextProvider } from './context/AuthContext';
 
 export default function App() {
-  return <SignInStack />
+  return (
+    <AuthContextProvider>
+      <SignInStack />
+    </AuthContextProvider>
+  )
 }
 
 const styles = StyleSheet.create({

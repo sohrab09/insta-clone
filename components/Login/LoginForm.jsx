@@ -1,16 +1,28 @@
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import Validator from 'email-validator'
-
+import { UserAuth } from '../../context/AuthContext'
 
 const LoginForm = ({ navigation }) => {
+
+    const { userLogin } = UserAuth()
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Invalid email').required('An email is required'),
         password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters')
     })
+
+    const handleSubmit = async ({ email, password }) => {
+        // console.log(email, password)
+        try {
+            await userLogin(email, password)
+            console.log("Logged in successfully", email, password)
+        } catch (error) {
+            Alert.alert(error.message)
+        }
+    };
 
 
     return (
@@ -18,7 +30,7 @@ const LoginForm = ({ navigation }) => {
             <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={validationSchema}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => handleSubmit(values)}
                 validateOnMount={true}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (

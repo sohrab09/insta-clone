@@ -3,9 +3,13 @@ import React from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import Validator from 'email-validator'
+import { UserAuth } from '../../context/AuthContext'
 
 
 const SignupForm = ({ navigation }) => {
+
+    const { userSignup } = UserAuth()
+
 
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('An username is required'),
@@ -13,13 +17,24 @@ const SignupForm = ({ navigation }) => {
         password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters')
     })
 
+    const handleSubmit = async ({ email, password }) => {
+        // console.log(email, password)
+        try {
+            await userSignup(email, password)
+            console.log("Signed Up Successfully", email, password)
+            navigation.navigate('HomeScreen')
+        } catch (error) {
+            Alert.alert(error.message)
+        }
+    };
+
 
     return (
         <View style={styles.container}>
             <Formik
                 initialValues={{ username: '', email: '', password: '' }}
                 validationSchema={validationSchema}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => handleSubmit(values)}
                 validateOnMount={true}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
