@@ -15,7 +15,7 @@ const screenOption = {
     headerShown: false
 }
 
-const SignInStack = () => (
+export const SignInStack = () => (
     <NavigationContainer>
         <Stack.Navigator
             initialRouteName="SignupScreen"
@@ -23,13 +23,21 @@ const SignInStack = () => (
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="NewPostScreens" component={NewPostScreens} />
+        </Stack.Navigator>
+    </NavigationContainer>
+);
+
+export const SignOutStack = () => (
+    <NavigationContainer>
+        <Stack.Navigator
+            initialRouteName="LoginScreen"
+            screenOptions={screenOption}
+        >
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
         </Stack.Navigator>
     </NavigationContainer>
 )
 
-
-export default SignInStack
 
 const styles = StyleSheet.create({})

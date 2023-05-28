@@ -4,11 +4,12 @@ import HomeScreen from './screens/HomeScreen';
 import NewPostScreens from './screens/NewPostScreens';
 import SignInStack from './Navigation';
 import { AuthContextProvider } from './context/AuthContext';
+import AuthNavigation from './AuthNavigation';
 
 export default function App() {
   return (
     <AuthContextProvider>
-      <SignInStack />
+      <AuthNavigation />
     </AuthContextProvider>
   )
 }
