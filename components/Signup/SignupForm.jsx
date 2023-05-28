@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Validator from 'email-validator'
 import { UserAuth } from '../../context/AuthContext'
 import { collection, addDoc } from "firebase/firestore";
-import db from '../../firebase'
+import { db } from '../../firebase'
 
 const SignupForm = ({ navigation }) => {
 
@@ -26,21 +26,20 @@ const SignupForm = ({ navigation }) => {
     };
 
     const handleSubmit = async ({ username, email, password }) => {
-        console.log(username, email, password)
+        // console.log(username, email, password)
         try {
             const authUser = await userSignup(email, password)
-            console.log("Signed Up Successfully", username, email, password)
+            // console.log("Signed Up Successfully", username, email, password)
 
-            const docRef = await addDoc(collection(db, "users"), {
+            await addDoc(collection(db, "users"), {
                 owner_uid: authUser.user.uid,
                 username: username,
                 email: authUser.user.email,
                 profile_pic: await getRandomProfilePic()
             })
-
-            console.log("Document written with ID: ", docRef.id);
         } catch (error) {
             Alert.alert(error.message)
+            // console.log(error.message)
         }
     };
 
