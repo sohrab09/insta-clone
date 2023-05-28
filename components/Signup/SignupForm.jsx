@@ -1,10 +1,11 @@
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import Validator from 'email-validator'
 import { UserAuth } from '../../context/AuthContext'
-
+import { collection, addDoc } from "firebase/firestore";
+import db from '../../firebase'
 
 const SignupForm = ({ navigation }) => {
 
@@ -15,14 +16,29 @@ const SignupForm = ({ navigation }) => {
         username: Yup.string().required('An username is required'),
         email: Yup.string().email('Invalid email').required('An email is required'),
         password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters')
-    })
+    });
 
-    const handleSubmit = async ({ email, password }) => {
-        // console.log(email, password)
+
+    const getRandomProfilePic = async () => {
+        const response = await fetch('https://randomuser.me/api')
+        const data = await response.json()
+        return data.results[0].picture.large
+    };
+
+    const handleSubmit = async ({ username, email, password }) => {
+        console.log(username, email, password)
         try {
-            await userSignup(email, password)
-            console.log("Signed Up Successfully", email, password)
-            navigation.navigate('HomeScreen')
+            const authUser = await userSignup(email, password)
+            console.log("Signed Up Successfully", username, email, password)
+
+            const docRef = await addDoc(collection(db, "users"), {
+                owner_uid: authUser.user.uid,
+                username: username,
+                email: authUser.user.email,
+                profile_pic: await getRandomProfilePic()
+            })
+
+            console.log("Document written with ID: ", docRef.id);
         } catch (error) {
             Alert.alert(error.message)
         }
