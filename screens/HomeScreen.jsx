@@ -7,24 +7,30 @@ import { POSTS } from '../data/posts'
 import BottomTabs, { bottomsTabIcons } from '../components/Home/BottomTabs'
 import { useEffect } from 'react'
 import { db } from '../firebase'
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 
 
 const HomeScreen = ({ navigation }) => {
 
-    const query = collection(db, "posts");
+    const fetchData = async () => {
+        try {
+            const mainCollectionRef = collection(db, 'users');
+            const mainCollectionSnapshot = await getDocs(mainCollectionRef);
 
+            mainCollectionSnapshot.forEach(async (mainDoc) => {
+                const nestedCollectionRef = collection(mainDoc.ref, 'posts');
+                const nestedCollectionSnapshot = await getDocs(nestedCollectionRef);
 
-    const result = getDocs(query)
-        .then((querySnapshot) => {
-            console.log('querySnapshot ------>>>>>> ', JSON.stringify(querySnapshot, null, 2))
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+                nestedCollectionSnapshot.forEach((nestedDoc) => {
+                    // console.log('Nested Document Data ------>>>>>> :', nestedDoc.data());
+                });
+            });
+        } catch (error) {
+            console.log('Error getting documents:', error);
+        }
+    };
 
-
-    console.log("Result", result)
+    fetchData();
 
 
     return (
